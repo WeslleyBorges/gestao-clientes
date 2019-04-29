@@ -4,7 +4,10 @@
 <link rel="stylesheet" href="{% static 'tabela.css' %}">
 
 {% block main %}
+{% if not venda %}
 <h1>Novo pedido</h1>
+{% endif %}
+
 <h2>Cabeçalho da venda: {{ venda_obj.numero }}</h2>
 
 <form method="POST" action="{% url 'novo_pedido' %}">
@@ -12,10 +15,10 @@
     <input class='form_pedido_input' type="hidden" value="{{ venda_obj.id }}" name="venda_id">
 
     <label for="num_venda">Número da venda </label><br>
-    <input name="num_venda" type="text"><br>
+    <input name="num_venda" value="{{ venda_obj.numero }}" type="text"><br>
 
     <label for="desconto">Desconto da venda </label><br>
-    <input name="desconto" type="text"><br>
+    <input name="desconto" value="{{ venda_obj.desconto }}" type="text"><br>
 
     <button type="submit">Enviar</button>
 </form>
@@ -26,8 +29,9 @@
 {% if venda_obj %}
 <form action="{% url 'novo_item_pedido' venda_obj.id %}">
     {% csrf_token %}
-    {{ form_item }}
-</form>
+    {{ form_item.as_p }}
+    <button submit="" class="btn-primary">Incluir</button>
+</form><br/>
 {% endif %}
 
 <table class="table">
@@ -45,6 +49,9 @@
         <td>{{ item.produto.preco }}</td>
         <td>{{ item.quantidade }}</td>
         <td>{{ item.desconto }}</td>
+        <td>
+            <a href="{% url 'delete_item_confirm' item.id%}"></a>
+        </td>    
     </tr>
     {% endfor %}
 </table>

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View 
 from .models import Venda, ItensPedido
 from django.http import HttpResponse
@@ -74,3 +74,46 @@ class NovoItensPedidoView(View):
     data['itens'] = item_pedido.venda.itenspedido_set.all()
 
     return render(request, 'vendas/novo-pedido.html', data)
+
+class ListaVendas(View):
+  def get(self, request):
+    vendas = Venda.objects.all()
+    return render(request, 'vendas/lista-vendas.html', {'vendas': vendas})
+
+class EditVenda(View):
+  def get(self, request, venda):
+    data = {}
+
+    venda = Venda.objects.get(id=venda)
+
+    data['form_item'] = ItensPedidoForm()
+    data['numero'] = venda.numero
+    data['desconto'] = venda.desconto
+    data['venda'] = venda.id
+    data['venda_obj'] = venda
+    data['itens'] = venda.itenspedido_set.all()
+
+    return render(request, 'vendas/novo-pedido.html', data)
+
+class DeleteVenda(View):
+  def get(self, request, venda):
+    venda = Venda.objects.get(id=venda)
+    return render(request, 'vendas/delete-venda-confirm.html', {'venda': venda})
+    # render   -> template.html
+    # redirect -> template_name
+
+  def post(self, request, venda):
+    venda = Venda.objects.get(id=venda)
+    venda.delete()
+    return redirect('lista_vendas')
+
+class DeleteItemVenda(View):
+  def get(self, request, item):
+    item = ItensPedido.objects.get(id=item)
+    return render(request, 'delete-confirm', {'item': item})
+
+  def post(self, request, item):
+    item = ItensPedido.objects.get(id=item)
+    item.delete()
+    venda_id = item.venda.id
+    return redirect('edit_venda/', venda=venda_id)

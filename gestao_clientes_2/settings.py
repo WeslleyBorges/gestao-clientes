@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'home',
     'vendas',
     'produtos',
+    #'django-extensions',
     #Django Debug Toolbar
     'debug_toolbar'
 ]

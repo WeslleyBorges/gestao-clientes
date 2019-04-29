@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<h2>Deseja excluir o item {{ item }}?</h2>
+
+<form action="{% url 'delete_item_confirm' item.id %}" method="post">
+
+</form>
+{% endblock %}

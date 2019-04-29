@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<h2>Lista de Vendas</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <td scope="col">ID</td>
+            <td scope="col">Número</td>
+            <td scope="col">Valor</td>
+            <td scope="col">Desconto</td>
+            <td scope="col">Editar</td>
+        </tr>
+    </thead>
+    {% for venda in vendas %}
+    <tbody>
+        <tr>
+            <td>{{ venda.id }}</td>
+            <td>{{ venda.numero }}</td>
+            <td>{{ venda.valor }}</td>
+            <td>{{ venda.desconto }}</td>
+            <td>
+                <a href="{% url 'edit_venda' venda.id %}">Editar</a>
+            </td>
+            <td>
+                <a href="{% url 'delete_venda' venda.id %}">Delete</a>
+            </td>
+        </tr>
+    </tbody>
+    {% endfor %}
+</table>
+{% endblock %}
