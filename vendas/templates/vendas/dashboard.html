@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'tabela.css' %}">
+
+{% block main %}
+<h1>Dashboard</h1>
+<ul>
+  <li>Média: {{ media }}</li>
+  <li>Preço máximo: {{ maximo }}</li>
+  <li>Preço mínimo: {{ minimo }}</li>
+  <li>Número de vendas: {{ count }}</li>
+  <li>Número de vendas com NF-E emitida: {{ nfe }}</li>
+</ul>
+<table>
+  <tr>
+    <th>Número</th>
+    <th>Valor</th>
+    <th>Pessoa</th>
+    <th>NF-e emitida</th>
+  </tr>
+  {% for venda in info_vendas %}
+    <tr>
+      <td>{{ venda.numero }}</td>
+      <td>{{ venda.valor }}</td>
+      <td>{{ venda.pessoa }}</td>     
+      <td>{{ venda.nfe_emitida }}</td> 
+    </tr>
+  {% endfor %}
+</table>
+{% endblock %}

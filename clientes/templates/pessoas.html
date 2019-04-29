@@ -1,0 +1,52 @@
+{% extends 'base.html'%}
+{% load bootstrap %}
+{% load filters %}
+{% load my_tags %}
+
+<!--{% load static %} -->
+
+{% block title %} Administração {% endblock %}
+
+{% block main %}
+{{ request.session.message }}
+<div class="container">
+    <div class="row">
+      <div class="col-sm">
+               
+      </div>
+      <div class="col-sm">
+        <ul>
+          {% for pessoa in pessoas %}
+            <li class="list-group-item">
+              <a href="{% url 'pessoa_detail' pessoa.id %}">
+                {{pessoa.first_name}} {{pessoa.last_name}}
+                {{ pessoa.salary | arredonda:2}}
+              </a>
+              <a href="{% url 'deletar_pessoa' pessoa.id%}" class="trash-item">
+                <i class="far fa-trash" aria-hidden="true"></i>              
+              </a>
+            </li>
+          {% empty %}
+            <li>Não há pessoas cadastradas para serem exibidas.</li>
+          {% endfor %}
+        </ul>
+        <button class="btn btn-primary" >
+          <a style="text-decoration: none; color: wheat;" href="{% url 'nova_pessoa' %}">
+            Adicionar nova pessoa
+            <i class="fas fa-user-plus"></i>
+          </a>
+        </button> 
+      </div>
+      <div class="col">
+        {% if user.is_authenticated %}
+          Seja bem-vindo, {{ user.username }} <br>
+          <a href="{% url 'my_logout' %}"> <span class="badge badge-dark">Logout</span> </a>
+        {% endif %}      
+      </div>
+    </div>
+  </div> 
+{% endblock %}
+
+{% block footer %}
+  {% include 'footer.html' %}
+{% endblock %}

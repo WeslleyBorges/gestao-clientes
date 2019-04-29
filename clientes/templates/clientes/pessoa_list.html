@@ -1,0 +1,9 @@
+Listagem de pessoas
+
+<br>
+{% for object in object_list %}
+<a href="{% url 'pessoa_detail' object.id %}">{{ object }}</a><br>
+{% endfor %}
+<br><br><br>
+
+<a href="{% url 'pessoa_create' %}">Novo</a>

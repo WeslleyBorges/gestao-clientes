@@ -1,0 +1,6 @@
+{{ object }} <br>
+
+Data e hora: {{ now }} <br>
+
+<a href="{% url 'pessoa_update' object.id%}">Atualizar</a>
+<a href="{% url 'pessoa_delete' object.id%}">Excluir</a>
