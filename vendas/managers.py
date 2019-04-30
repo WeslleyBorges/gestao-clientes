@@ -13,7 +13,10 @@ class VendaManager(models.Manager):
 
   def count(self):
     return self.all().aggregate(Count('valor'))['valor__count']
-   
+
+  def count_vendas(self):
+    return self.all().count()
+
   def nfe_emitida_count(self):
     return self.filter(nfe_emitida=True).aggregate(Count('id'))['id__count']
 

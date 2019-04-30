@@ -23,6 +23,8 @@ class Pessoa(models.Model):
     permissions = (
       ('visualizar_pessoa_detail', 'Permissão para visualizar as informações de uma pessoa específica.'),
     )
+    verbose_name_plural = 'Pessoinhas'
+    unique_together = (("first_name", "age"),)
 
   @property
   def nome_completo(self):
