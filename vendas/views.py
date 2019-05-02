@@ -3,6 +3,9 @@ from django.views import View
 from .models import Venda, ItensPedido
 from django.http import HttpResponse
 from .forms import ItensPedidoForm
+import logging
+
+logger = logging.getLogger('django')
 
 # Create your views here.
 class DashboardView(View):
@@ -77,7 +80,16 @@ class NovoItensPedidoView(View):
 
 class ListaVendas(View):
     def get(self, request):
-        vendas = Venda.objects.all()
+
+        logger.debug('Acessaram a lista d vendas ae, man')
+
+        numero_venda = request.GET.get('pesquisa', None)
+
+        if numero_venda:
+            vendas = Venda.objects.filter(numero=numero_venda)
+        else:
+            vendas = Venda.objects.all()
+
         return render(request, 'vendas/lista-vendas.html', {'vendas': vendas, 'count_vendas': Venda.objects.count_vendas})
 
 class EditVenda(View):

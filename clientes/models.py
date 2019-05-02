@@ -11,6 +11,16 @@ class Documento(models.Model):
 
 # Create your models here.
 class Pessoa(models.Model):
+  PESSOA_FISICA = 'PF'
+  PESSOA_JURIDICA = 'PJ'
+  NENHUMA_DAS_ALTERNATIVAS = 'NDA '
+
+  TIPO_PESSOA_CHOICES = (
+    (PESSOA_FISICA, 'Pessoa Física'),
+    (PESSOA_JURIDICA, 'Pessoa Jurídica'),
+    (NENHUMA_DAS_ALTERNATIVAS, 'Nada')
+  )
+
   first_name = models.CharField(max_length=30)
   last_name = models.CharField(max_length=30)
   age = models.IntegerField()
@@ -18,13 +28,13 @@ class Pessoa(models.Model):
   bio = models.TextField()
   photo = models.ImageField(upload_to='clients_photos', null=True, blank=True)
   doc = models.OneToOneField(Documento, null=True, blank=True, on_delete=models.CASCADE)
-  
+  tipo_pessoa = models.CharField(choices=TIPO_PESSOA_CHOICES, default=NENHUMA_DAS_ALTERNATIVAS, max_length=2)
+
   class Meta:
     permissions = (
       ('visualizar_pessoa_detail', 'Permissão para visualizar as informações de uma pessoa específica.'),
     )
     verbose_name_plural = 'Pessoinhas'
-    unique_together = (("first_name", "age"),)
 
   @property
   def nome_completo(self):

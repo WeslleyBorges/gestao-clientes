@@ -50,6 +50,11 @@ class ItensPedido(models.Model):
   def __str__(self):
     return str(self.venda) + ' - ' + str(self.produto)
 
+  class Meta:
+    unique_together = (
+      ('venda', 'produto'),
+    )
+
 @receiver(post_save, sender=ItensPedido)
 def update_vendas_total_itempedido(sender, instance, **kwargs):
   instance.venda.calcular_total()

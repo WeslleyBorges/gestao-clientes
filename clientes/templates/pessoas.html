@@ -10,6 +10,12 @@
 {% block main %}
 {{ request.session.message }}
 <div class="container">
+    <div class="col">
+      <form action="" method="GET">
+          <input type="text" placeholder="Nome da pessoa a ser buscada">
+          <button id="pesquisa" name="pesquisa" type="submit">Buscar</button>
+      </form>
+    </div>
     <div class="row">
       <div class="col-sm">
                

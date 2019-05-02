@@ -9,7 +9,7 @@ class PessoaAdmin(admin.ModelAdmin):
      ('Dados pessoais', {'fields': ('first_name', 'last_name', 'doc')}),
     ('Dados complementares', {
        'classes': ('collapse',),
-       'fields': ('age', 'salary', 'bio')})
+       'fields': ('age', 'salary', 'bio', 'tipo_pessoa')})
 )
 
 search_fields = ('first_name', 'last_name')

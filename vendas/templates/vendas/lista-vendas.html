@@ -2,7 +2,13 @@
 
 {% block main %}
 <h2>Lista de Vendas</h2>
-<h6>Total: {{ count_vendas }} vend{{ count_vendas|pluralize:"a,as" }}</h6>
+<p>Total: {{ count_vendas }} vend{{ count_vendas|pluralize:"a,as" }}</p>
+<div class="col">
+    <form action="" method="GET">
+        <input type="text" placeholder="Nº da venda a ser pesquisada">
+        <button id="pesquisa" name="pesquisa" type="submit">Buscar</button>
+    </form>
+</div>
 <table class="table">
     <thead>
         <tr>
